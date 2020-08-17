@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
+import it.polito.tdp.lab04.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -38,6 +39,27 @@ public class FXMLController {
 
     @FXML
     void greenButton(ActionEvent event) {
+    	
+    	Integer matricola;
+    	Studente s;
+    	try {
+    		matricola = Integer.valueOf(txtMatricola.getText());
+    	}
+    	catch (NumberFormatException nfe) {
+    		txtMessage.appendText("Non è stato inserito un codice numerico.\n");
+    		return;
+    	}
+    	
+    	s = model.getStudenteFromMatricola(matricola);
+    	
+    	if (s.getNome() == null) {
+    		txtMessage.appendText("Il codice inserito non corrisponde a nessuna matricola.\n");
+    		return;
+    	}
+    	
+    	txtNome.setText(s.getNome());
+    	txtCognome.setText(s.getCognome());
+    	
 
     }
 

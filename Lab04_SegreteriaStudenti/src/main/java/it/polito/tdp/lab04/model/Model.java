@@ -19,8 +19,12 @@ public class Model {
 		return cDAO.getTuttiICorsi();
 	}
 
-	public Studente getStudenteFromMatricola (int matricola) {
-		return sDAO.getStudenteFromMatricola(matricola);
+	public Studente getStudenteByMatricola (int matricola) {
+		return sDAO.getStudenteByMatricola(matricola);
+	}
+	
+	public List<Studente> getStudentiIscrittiAlCorso(Corso c) {
+		return cDAO.getStudentiIscrittiAlCorso(c);
 	}
 	
 }

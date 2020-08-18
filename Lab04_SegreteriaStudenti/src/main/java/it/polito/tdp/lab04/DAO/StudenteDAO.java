@@ -10,7 +10,7 @@ import it.polito.tdp.lab04.model.Studente;
 
 public class StudenteDAO {
 	
-	public Studente getStudenteFromMatricola (int matricola) {
+	public Studente getStudenteByMatricola (int matricola) {
 		
 		Studente s = new Studente();
 		

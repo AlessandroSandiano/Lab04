@@ -10,7 +10,7 @@ public class TestModel {
 		 * 	Write here your test model
 		 */
 		
-		Studente s = model.getStudenteFromMatricola(146101);
+		Studente s = model.getStudenteByMatricola(146101);
 		System.out.println(s.getNome() + " " + s.getCognome());
 		
 		

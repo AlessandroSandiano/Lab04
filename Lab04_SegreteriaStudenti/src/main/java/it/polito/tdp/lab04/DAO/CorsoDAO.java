@@ -95,6 +95,35 @@ public class CorsoDAO {
 		}
 		
 	}
+	
+	public List<Corso> getCorsiByMatricola(int matricola) {
+		
+		final String sql = "SELECT corso.* FROM corso, iscrizione\r\n" + 
+				"WHERE matricola = ?";
+		
+		List<Corso> corsi = new ArrayList<>();
+		
+		try {
+			
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setInt(1, matricola);;
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next())
+				corsi.add(new Corso(rs.getString("codins"), rs.getInt("crediti"), rs.getString("nome"), rs.getInt("pd")));
+			
+			conn.close();
+			
+			return corsi;
+			
+		}
+		
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
 
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.

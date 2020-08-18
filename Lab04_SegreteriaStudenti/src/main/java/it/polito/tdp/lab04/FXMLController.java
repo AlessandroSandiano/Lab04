@@ -42,6 +42,7 @@ public class FXMLController {
     @FXML
     void greenButton(ActionEvent event) {
     	
+    	txtMessage.clear();
     	Integer matricola;
     	Studente s;
     	try {
@@ -49,12 +50,14 @@ public class FXMLController {
     	}
     	catch (NumberFormatException nfe) {
     		txtMessage.appendText("Non è stato inserito un codice numerico.\n");
-    		return;
+    		throw new RuntimeException ("Errore di input.\n");
     	}
     	
     	s = model.getStudenteByMatricola(matricola);
     	
     	if (s.getNome() == null) {
+    		txtNome.clear();
+    		txtCognome.clear();
     		txtMessage.appendText("Il codice inserito non corrisponde a nessuna matricola.\n");
     		return;
     	}
@@ -68,12 +71,42 @@ public class FXMLController {
     @FXML
     void handleCercaCorsi(ActionEvent event) {
     	
+		txtNome.clear();
+		txtCognome.clear();
+    	
+    	List<Corso> corsi = new ArrayList<>();
+    	Integer matricola;
+    	
+    	try {
+    		matricola = Integer.valueOf(txtMatricola.getText());
+    	}
+    	catch (NumberFormatException nfe) {
+    		txtMessage.setText("Non è stato inserito un codice numerico.\n");
+    		throw new RuntimeException ("Errore di input.\n");
+    	}
+    	
+    	corsi = model.getCorsiByMatricola(matricola);
+    	
+    	if (corsi.size() == 0) {
+    		txtMessage.setText("Il codice inserito non corrisponde a nessuna matricola.\n");
+    		return;
+    	}
+    	
+    	txtMessage.setText(String.format("%-11s", "CODINS") + String.format("%-10s", "CREDITI") + String.format("%-55s", "NOME DEL CORSO") + String.format("%-3s", "PD") + "\n\n");
+    	
+    	for (Corso c: corsi) {
+    		txtMessage.appendText(String.format("%-11s", c.getCodins()) + String.format("%-10d", c.getCrediti()) + String.format("%-55s", c.getNome()) + String.format("%-3d", c.getPd()) + "\n");
+    	}
     	
     }
 
     @FXML
     void handleCercaIscritti(ActionEvent event) {
 
+    	txtMatricola.clear();
+    	txtNome.clear();
+    	txtCognome.clear();
+    	
     	List<Studente> studenti = new ArrayList<> ();
     	
     	if (buttonCorsi.getValue() == null) {

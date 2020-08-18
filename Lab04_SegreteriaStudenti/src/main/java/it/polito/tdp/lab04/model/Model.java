@@ -27,4 +27,8 @@ public class Model {
 		return cDAO.getStudentiIscrittiAlCorso(c);
 	}
 	
+	public List<Corso> getCorsiByMatricola(int matricola) {
+		return cDAO.getCorsiByMatricola(matricola);
+	}
+	
 }
